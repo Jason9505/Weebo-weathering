@@ -1,0 +1,127 @@
+/* Import a clean, modern Japanese-supporting font */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;700&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Noto Sans JP', sans-serif;
+    /* Uses an evocative, cloudy sky background similar to Makoto Shinkai's style */
+    background-image: url('https://images.unsplash.com/photo-1513002749550-c59d220b8e42?q=80&w=2070&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+}
+
+.container {
+    width: 100%;
+    max-width: 450px;
+    padding: 20px;
+}
+
+/* Glassmorphism styling for an uncluttered look */
+.weather-card {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 20px;
+    padding: 40px 30px;
+    text-align: center;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+}
+
+h1 {
+    font-size: 1.2rem;
+    margin-bottom: 25px;
+    font-weight: 400;
+    letter-spacing: 1.5px;
+    text-shadow: 1px 1px 4px rgba(0,0,0,0.3);
+}
+
+.search-box {
+    display: flex;
+    margin-bottom: 25px;
+}
+
+.search-box input {
+    flex: 1;
+    padding: 12px 15px;
+    border: none;
+    border-radius: 25px 0 0 25px;
+    outline: none;
+    background: rgba(255, 255, 255, 0.85);
+    color: #333;
+    font-family: inherit;
+}
+
+.search-box button {
+    padding: 12px 25px;
+    border: none;
+    background: #5ab1e6; /* Bright sky blue */
+    color: white;
+    font-weight: bold;
+    border-radius: 0 25px 25px 0;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.search-box button:hover {
+    background: #4a91c6;
+}
+
+.hidden {
+    display: none;
+}
+
+#location {
+    font-size: 2.2rem;
+    margin-bottom: 10px;
+    font-weight: 700;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.weather-info {
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+#temperature {
+    font-size: 3.5rem;
+    font-weight: 700;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+#condition {
+    font-size: 1.2rem;
+    text-transform: capitalize;
+    font-weight: 300;
+}
+
+#quote {
+    font-style: italic;
+    font-size: 0.95rem;
+    opacity: 0.9;
+    margin-top: 20px;
+    line-height: 1.4;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+}
+
+.error {
+    color: #ffcccc;
+    margin-top: 15px;
+    font-size: 0.9rem;
+    background: rgba(255, 0, 0, 0.2);
+    padding: 10px;
+    border-radius: 10px;
+}
