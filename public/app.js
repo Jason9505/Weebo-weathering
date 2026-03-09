@@ -8,54 +8,75 @@ async function getWeather() {
     if (!cityInput) return;
 
     try {
-        // Call our Node.js backend proxy
-        const response = await fetch(`/api/weather?city=${cityInput}`);
+        // Fetch data from our Node.js backend proxy
+        const response = await fetch(`/api/weather?city=${encodeURIComponent(cityInput)}`);
         const data = await response.json();
 
         if (!response.ok) {
             throw new Error(data.error || 'City not found');
         }
 
-        // Update the DOM elements with retrieved data
+        // 1. Update text content
         document.getElementById('location').innerText = `${data.name}, ${data.sys.country}`;
         document.getElementById('temperature').innerText = `${Math.round(data.main.temp)}°C`;
         document.getElementById('condition').innerText = data.weather[0].description;
 
-        // Change quote based on the anime theme
-        updateThemeQuote(data.weather[0].main);
+        // 2. CHANGE: Trigger the theme update (Background, Icon, and Quote)
+        // data.weather[0].main returns strings like "Rain", "Clouds", "Clear", etc.
+        updateTheme(data.weather[0].main);
 
-        // Show weather and hide errors
+        // 3. Show the display card
         weatherDisplay.classList.remove('hidden');
         errorMessage.classList.add('hidden');
         
     } catch (error) {
-        // Handle errors (e.g., misspelled city)
+        console.error('Frontend Error:', error);
         errorMessage.innerText = error.message;
         errorMessage.classList.remove('hidden');
         weatherDisplay.classList.add('hidden');
     }
 }
 
-function updateThemeQuote(weatherCondition) {
+// CHANGE: New function to handle the "Weathering with You" aesthetic logic
+function updateTheme(condition) {
+    const body = document.body;
+    const iconEl = document.getElementById('weatherIcon');
     const quoteEl = document.getElementById('quote');
+    
+    let bgUrl = "";
+    let iconUrl = "";
     let quote = "";
 
-    // Thematically matches quotes to weather conditions
-    switch (weatherCondition.toLowerCase()) {
-        case 'rain':
-        case 'drizzle':
-        case 'thunderstorm':
-            quote = '"I want you more than any blue sky."';
-            break;
-        case 'clear':
-            quote = '"The sky is connected, even if it feels far away."';
-            break;
-        case 'clouds':
-            quote = '"Human minds are tied to the weather."';
-            break;
-        default:
-            quote = '"Who cares if we don\'t see the sunshine ever again?"';
+    // Normalize condition to lowercase for reliable matching
+    const weather = condition.toLowerCase();
+
+    if (weather.includes('rain') || weather.includes('drizzle') || weather.includes('thunderstorm')) {
+        bgUrl = "https://images.alphacoders.com/852/thumb-1920-852074.png"; // Rainy Tokyo
+        iconUrl = "https://cdn-icons-png.flaticon.com/512/3358/3358556.png"; 
+        quote = '"I want you more than any blue sky."';
+    } 
+    else if (weather.includes('clear')) {
+        bgUrl = "https://girlsontopstees.com/cdn/shop/articles/weathering_with_you_cover.jpg?v=1680725259"; // Bright Sunshine
+        iconUrl = "https://cdn-icons-png.flaticon.com/512/3222/3222800.png";
+        quote = '"Who cares if we don\'t see the sunshine ever again?"';
+    } 
+    else if (weather.includes('clouds')) {
+        bgUrl = "https://images7.alphacoders.com/555/thumb-1920-555562.jpg"; // Towering Clouds
+        iconUrl = "https://cdn-icons-png.flaticon.com/512/1163/1163624.png";
+        quote = '"Human minds are tied to the weather."';
+    } 
+    else {
+        // Default / Mist / Snow
+        bgUrl = "https://m.wsj.net/video/20200116/011620weatheringwithyou/011620weatheringwithyou_1920x1080.jpg";
+        iconUrl = "https://cdn-icons-png.flaticon.com/512/1163/1163661.png";
+        quote = '"The sky is connected, even if it feels far away."';
     }
+
+    // Apply the Background with a dark tint for readability
+    body.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url('${bgUrl}')`;
     
+    // Apply the Icon and Quote
+    iconEl.src = iconUrl;
+    iconEl.classList.remove('hidden');
     quoteEl.innerText = quote;
 }
