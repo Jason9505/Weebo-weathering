@@ -8,28 +8,16 @@
 
 body {
     font-family: 'Noto Sans JP', sans-serif;
-    /* CHANGE: Added a dark fallback color and a smooth transition */
-    background-color: #1a1a2e;
+    background-color: #1a1a2e; /* Dark fallback color */
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
-    transition: background-image 1.2s ease-in-out; 
-    
+    transition: background-image 1.2s ease-in-out; /* Smooth fade when weather changes */
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
     color: #fff;
-}
-
-/* CHANGE: Added styling for the Anime Weather Icon */
-.weather-icon {
-    width: 100px;
-    height: 100px;
-    margin: 0 auto 15px auto;
-    display: block;
-    /* Soft glow to match the anime aesthetic */
-    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.6));
 }
 
 .container {
@@ -38,8 +26,9 @@ body {
     padding: 20px;
 }
 
+/* Glassmorphism Weather Card */
 .weather-card {
-    background: rgba(255, 255, 255, 0.12); /* Slightly more transparent */
+    background: rgba(255, 255, 255, 0.12);
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
     border: 1px solid rgba(255, 255, 255, 0.2);
@@ -49,16 +38,107 @@ body {
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
 }
 
-/* ... (Remaining search-box and text styles remain the same) ... */
+h1 {
+    font-size: 1.5rem;
+    margin-bottom: 25px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-shadow: 2px 2px 6px rgba(0,0,0,0.5);
+}
+
+/* --- FIX: Unified Pill-Shaped Search Bar --- */
+.search-box {
+    display: flex;
+    margin-bottom: 25px;
+    border-radius: 30px; /* Applies the roundness to the whole container */
+    overflow: hidden;    /* Traps the input and button inside the rounded corners */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.search-box input {
+    flex: 1;
+    padding: 15px 20px;
+    border: none;
+    outline: none; /* Removes the ugly default browser outline when clicked */
+    background: rgba(255, 255, 255, 0.9);
+    color: #333;
+    font-size: 1rem;
+    font-family: inherit;
+}
+
+.search-box button {
+    padding: 15px 25px;
+    border: none;
+    background: #5ab1e6; /* Shinkai sky blue */
+    color: white;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.search-box button:hover {
+    background: #4a91c6;
+}
+
+/* --- FIX: Force Hide Broken Elements --- */
+.hidden {
+    display: none !important; /* The !important ensures nothing overrides this state */
+}
+
+/* --- Weather Display Elements --- */
+#location {
+    font-size: 2.2rem;
+    margin-bottom: 10px;
+    font-weight: 700;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.4);
+}
+
+.weather-icon {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 10px auto;
+    display: block;
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.6)); /* Glowing anime effect */
+}
+
+.weather-info {
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+#temperature {
+    font-size: 3.5rem;
+    font-weight: 700;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.4);
+}
+
+#condition {
+    font-size: 1.2rem;
+    text-transform: capitalize;
+    font-weight: 300;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.4);
+}
 
 #quote {
     font-style: italic;
     font-size: 0.95rem;
     margin-top: 25px;
     line-height: 1.5;
-    /* CHANGE: Added more shadow for readability against bright backgrounds */
     text-shadow: 2px 2px 8px rgba(0,0,0,0.8);
     border-top: 1px solid rgba(255,255,255,0.2);
     padding-top: 15px;
 }
 
+.error {
+    color: #ffcccc;
+    margin-top: 15px;
+    font-size: 0.9rem;
+    background: rgba(255, 0, 0, 0.3);
+    padding: 10px;
+    border-radius: 10px;
+    backdrop-filter: blur(5px);
+}
